@@ -14,14 +14,14 @@ struct node {
 class linkedlist {
 private:
     node * head;
-    int count(); // RECURSIVE
-    int sum(); // RECURSIVE
+    int count(struct node* head); // RECURSIVE
+    int sum(struct node* head); // RECURSIVE
 
 public:
     linkedlist();
-    ~linkedlist(); // RECURSIVE
+    ~linkedlist(struct *node head); // RECURSIVE
     void addToFront(int n);
-    double average(); // uses sum and count functions
+    double average(struct *node head); // uses sum and count functions
     void writeInorder(string & file);
     void writeReversed(string & file);
 };
