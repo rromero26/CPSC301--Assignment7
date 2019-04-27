@@ -59,15 +59,43 @@ void linkedlist::addToFront(int n) {
 }
 
 void linkedlist::writeInorder(string & file) {   //Write in whatver order linklist is in
-    node *cursor = head;
 
     fstream myFile;
     myFile.open(file);
 
-    while (cursor != NULL){
-      myFile << cursor->data << " ";
-      cursor = cursor-> next;
+    bool isSorted = false;
+    while (isSorted == false){
+      node *cursor = head;
+      bool sorted = false;
+      while(sorted = false){
+        node *temp1 = head;
+        node *temp2 = head;
+        node *temp3 = head;
+        sorted = true;
+
+        do{
+          node *next = temp1->next;
+          if(temp1->data  >  next->data){
+            temp2 = temp1;
+            temp3 = next;
+            sorted = false;
+          }
+          temp1 = temp1->next;
+        } while(temp1->next != NULL);
+        if(cursor != NULL){
+          cursor->next = temp3;
+        }
+
+        cursor = temp3;
+        if(cursor == head){
+          head = cursor->next;
+        }
+        temp2->next = temp3->next;
+        cursor->next = NULL;
+      }
+      cursor->next = head;
     }
+
 
     myFile << endl;
     myFile.close();
@@ -97,38 +125,4 @@ void linkedlist::writeReversed(string & file) {
 
     myFile.close();
 
-
-}
-
-void addSort(int val){
-  node *newNode = new node;               //create new node for when adding to linklist
-  newNode->data = val;                    //gives it value pass in
-  newNode->next = NULL;                   //initial ptr = null, will be change by end of function
-  node *temp = head;
-
-  if (temp == NULL || temp->data >= val){   //if linklist empty, add to front
-    newNode->next = head;
-    head = newNode;
-    return;
-  }
-  else if(temp->next != NULL && temp->next->data >= val){
-    node *tempNode = head->next;
-    newNode->next = tempNode;
-    head->next = newNode;
-    return;
-
-  }
-  else{                                   //majority cases here
-    node *left;                           //create left and right nodes that traverse linkedlist
-    node *right = head;                   //once condition met, will save NEWNODE between appropriate nodes
-
-    while(right!= NULL && right->next->data <= val){
-      left = right;
-      right = right->next;
-    }
-
-    left->next = newNode;
-    newNode->next = right;
-    return;
-  }
 }
