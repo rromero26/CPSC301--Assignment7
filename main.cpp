@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "linkedlist.cpp"
+#include "linkedlist.h"
 #include <fstream>
 using namespace std;
 
@@ -13,10 +14,9 @@ void readFile(linkedlist & myList, string & file) {
       exit(1);
     }
 
-    int tempVal;
+    int tempVal = 0;
     while(myFile >> tempVal){
-      addSort(tempVal);                     //adds onto linklist in order
-      //linkedlist function in order
+      myList.addToFront(tempVal);
     }
     myFile.close();
 }
@@ -25,24 +25,24 @@ void readFile(linkedlist & myList, string & file) {
 // ------------------------- MAIN -----------------------------
 
 int main() {
-    linkedlist();                  //SHOULD create linkedlist
+    linkedlist myLList = linkedlist();                  //SHOULD create linkedlist
     string userFile;
     cout << "Enter file name." << endl;
     cin >> userFile;                            //SHOULD get string of file.txt
 
-    readFile(userFile);             //SHOULD store and sort linkedlist in order
+    readFile(myLList, userFile);             //SHOULD store linkedlist (random order)
 
-    cout << "The average of LinkedList is: " << average() << endl;
+    cout << "The average of LinkedList is: " << myLList.average() << endl;
 
-    writeInorder(userFile);         //SHOULD write into file in order (since stored in order)
+    myLList.writeInorder(userFile);         //SHOULD write into file in order
 
     cout << "SUCCESS: data written, in order, back into file" << endl;
 
-    writeReversed(userFile);        //SHOULD write into file in reverse order
+    myLList.writeReversed(userFile);        //SHOULD write into file in reverse order
 
-    cout << "SUCCESS: data written, in reverse order, back into file"
+    cout << "SUCCESS: data written, in reverse order, back into file" << endl;
 
-    ~linkedlist();
+    delete myLList;
 
     return 0;
 }
