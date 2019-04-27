@@ -21,7 +21,6 @@ public:
     linkedlist();
     ~linkedlist(); // RECURSIVE
     void addToFront(int n);
-    void addSort(int val);
     double average(); // uses sum and count functions
     void writeInorder(string & file);
     void writeReversed(string & file);
